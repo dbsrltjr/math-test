@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>구구단 게임</title>
+    <script>
+        function randomInt() {
+            return Math.floor(Math.random() * 9) + 1;
+        }
+        let correctCount = 0; // 정답 개수 저장 변수
+        let wrongCount = 0; // 오답 개수 저장 변수
+        let gameCount = 10; // 게임 횟수 저장 변수
+        let currentCount = 0; // 현재 진행한 게임 횟수 저장 변수
+        function game() {
+            // 구구단 문제 생성
+            let ques = randomInt() + "*" + randomInt();
+            // 사용자로부터 답 입력
+            let user = prompt(ques + " 값은 얼마입니까?", 0);
+            if (user == null) { // 취소 버튼이 클릭된 경우
+                document.write("구구단 게임을 종료합니다");
+            }
+            else {
+                let ans = eval(ques); // 구구단 정답 계산
+                if (ans == user) { // 정답과 사용자 입력 비교
+                    document.write("정답!<br>");
+                    correctCount++;
+                }
+                else {
+                    document.write("아니오! ");
+                    document.write(ques + "=" + "<strong>" + ans + "</strong>입니다.<br>");
+                    wrongCount++;
+                }
+
+                currentCount++; // 현재 진행한 게임 횟수 증가
+                if (currentCount < gameCount) { // 게임 횟수보다 적게 진행했으면 게임 계속 진행
+                    game();
+                }
+                else { // 게임 횟수만큼 진행했으면 결과 출력
+                    document.write("<hr>");
+                    document.write("정답 개수 : " + correctCount + "<br>");
+                    document.write("오답 개수 : " + wrongCount + "<br>");
+                    if (correctCount == 10) {
+                        document.write("정답을 모두 맞추셨습니다. 축하합니다!!!");
+                    }
+                    else {
+                        document.write("아쉽지만 다 못맞추셨습니다. 다시 한번 도전해보세요!!!");
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h3>구구단 게임</h3>
+    <hr>
+    <button onclick="game()">게임 시작</button>
+</body>
+</html>
